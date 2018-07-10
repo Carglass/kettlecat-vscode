@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
       data: {
         query: `
             query{
-              chakiboo(id: "5b35956ff455f5c193fdaf8d"){
+              chakiboos{
                 title
               }
             }
@@ -33,11 +33,22 @@ export function activate(context: vscode.ExtensionContext) {
       .then(result => {
         // Display a message box to the user
         console.log(result.data);
+        vscode.window.showInformationMessage(
+          result.data.data.chakiboos[0].title
+        );
       })
       .catch(err => {
         console.log(err);
       });
   });
+
+  let connectionButton = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Left,
+    0
+  );
+  connectionButton.text = "Test";
+  connectionButton.command = "extension.sayHello";
+  connectionButton.show();
 
   context.subscriptions.push(disposable);
 }
