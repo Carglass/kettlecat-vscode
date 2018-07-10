@@ -36,6 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage(
           result.data.data.chakiboos[0].title
         );
+        vscode.window.showInputBox();
       })
       .catch(err => {
         console.log(err);
