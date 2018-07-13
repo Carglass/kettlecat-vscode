@@ -4,6 +4,8 @@
 import * as vscode from "vscode";
 const axios = require("axios");
 
+import copyChakiboo from "./copyChakiboo";
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -14,41 +16,42 @@ export function activate(context: vscode.ExtensionContext) {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand("extension.sayHello", () => {
-    // The code you place here will be executed every time your command is executed
+  let disposable = vscode.commands.registerCommand(
+    "extension.copyChakiboo",
+    () => {
+      // The code you place here will be executed every time your command is executed
 
-    axios({
-      url: "https://kettlecat-graphql.herokuapp.com/graphql",
-      method: "get",
-      data: {
-        query: `
+      axios({
+        url: "https://kettlecat-graphql.herokuapp.com/graphql",
+        method: "get",
+        data: {
+          query: `
             query{
               chakiboos{
+                id
                 title
+                description
               }
             }
           `
-      }
-    })
-      .then(result => {
-        // Display a message box to the user
-        console.log(result.data);
-        vscode.window.showInformationMessage(
-          result.data.data.chakiboos[0].title
-        );
-        vscode.window.showInputBox();
+        }
       })
-      .catch(err => {
-        console.log(err);
-      });
-  });
+        .then(result => {
+          let db_chakiboos = result.data.data.chakiboos;
+          copyChakiboo(db_chakiboos);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  );
 
   let connectionButton = vscode.window.createStatusBarItem(
     vscode.StatusBarAlignment.Left,
     0
   );
   connectionButton.text = "Test";
-  connectionButton.command = "extension.sayHello";
+  connectionButton.command = "extension.copyChakiboo";
   connectionButton.show();
 
   context.subscriptions.push(disposable);
