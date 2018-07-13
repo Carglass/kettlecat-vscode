@@ -54,9 +54,15 @@ async function copyChakiboo(db_chakiboos: any[]) {
 
   // adds the code from the chakiboo at the beginning of the active text editor
   let beginning: vscode.Position = new vscode.Position(0, 0);
-  vscode.window.activeTextEditor.edit(textEditor => {
-    textEditor.insert(beginning, code);
-  });
+  try {
+    await vscode.window.activeTextEditor.edit(textEditor => {
+      textEditor.insert(beginning, code);
+    });
+  } catch (error) {
+    vscode.window.showErrorMessage(
+      "Open an editor into which copy the chakiboo first"
+    );
+  }
 }
 
 export default copyChakiboo;
