@@ -31,6 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
                 id
                 title
                 description
+                language
               }
             }
           `

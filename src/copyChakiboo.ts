@@ -8,10 +8,12 @@ class ChakibooQuickPickItem implements vscode.QuickPickItem {
   label: string;
   id: string;
   description: string;
+  detail: string;
   constructor(chakiboo: Chakiboo) {
     this.label = chakiboo.title;
     this.id = chakiboo.id;
-    this.description = chakiboo.description;
+    this.detail = chakiboo.description;
+    this.description = chakiboo.language;
   }
 }
 
