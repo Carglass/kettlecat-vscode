@@ -28,12 +28,15 @@ function convertIntoChakibooQuickPickItems(db_chakiboos: any[]) {
 }
 
 async function copyChakiboo(db_chakiboos: any[]) {
-  console.log("running");
+  // creating quicks for the quick pick menu from the chakiboos
   let quickPicks = convertIntoChakibooQuickPickItems(db_chakiboos);
-  console.log(quickPicks);
+
+  // get the chakiboo choice from the user
   let pick: ChakibooQuickPickItem = await vscode.window.showQuickPick(
     quickPicks
   );
+
+  // fetch the code from this chakiboo
   let axiosResponse = await axios({
     url: "https://kettlecat-graphql.herokuapp.com/graphql",
     method: "get",
@@ -48,6 +51,8 @@ async function copyChakiboo(db_chakiboos: any[]) {
     }
   });
   let code: string = axiosResponse.data.data.chakiboo.code;
+
+  // adds the code from the chakiboo at the beginning of the active text editor
   let beginning: vscode.Position = new vscode.Position(0, 0);
   vscode.window.activeTextEditor.edit(textEditor => {
     textEditor.insert(beginning, code);
