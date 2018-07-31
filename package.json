@@ -15,10 +15,23 @@
   ],
   "main": "./out/extension",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "package-explorer",
+          "title": "Package Explorer",
+          "icon": "ressources/logo-03-01.svg"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "extension.copyChakiboo",
         "title": "Copy Chakiboo"
+      },
+      {
+        "command": "extension.auth",
+        "title": "Login into Kettlecat"
       }
     ]
   },
