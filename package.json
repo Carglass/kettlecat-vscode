@@ -18,9 +18,17 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "package-explorer",
-          "title": "Package Explorer",
+          "id": "kettlecat-explorer",
+          "title": "Kettlecat",
           "icon": "ressources/logo-03-01.svg"
+        }
+      ]
+    },
+    "views": {
+      "kettlecat-explorer": [
+        {
+          "id": "my-chakiboos",
+          "name": "Chakiboos"
         }
       ]
     },

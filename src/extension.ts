@@ -5,6 +5,7 @@ import * as vscode from "vscode";
 const axios = require("axios");
 
 import copyChakiboo from "./copyChakiboo";
+import ChakiboosDataProvider from "./ChakiboosDataProvider";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -40,6 +41,13 @@ export function activate(context: vscode.ExtensionContext) {
         .then(result => {
           let db_chakiboos = result.data.data.chakiboos;
           copyChakiboo(db_chakiboos);
+          let tree = vscode.window.createTreeView("my-chakiboos", {
+            treeDataProvider: new ChakiboosDataProvider(db_chakiboos)
+          });
+          // vscode.window.registerTreeDataProvider(
+          //   "my-chakiboos",
+          //   new ChakiboosDataProvider(db_chakiboos)
+          // );
         })
         .catch(err => {
           console.log(err);
@@ -51,7 +59,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.StatusBarAlignment.Left,
     0
   );
-  connectionButton.text = "Test";
+  connectionButton.text = "Kettlecat";
   connectionButton.command = "extension.copyChakiboo";
   connectionButton.show();
 
