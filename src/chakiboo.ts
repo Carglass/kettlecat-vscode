@@ -12,6 +12,7 @@ class Chakiboo extends vscode.TreeItem {
     this.title = db_chakiboo.title;
     this.description = db_chakiboo.description;
     this.language = db_chakiboo.language;
+    this.tooltip = db_chakiboo.description;
   }
 }
 
